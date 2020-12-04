@@ -1,0 +1,17 @@
+baseURL = "https://sebkraemer.github.io/"
+publishDir = "public"
+languageCode = "en-us"
+title = "TL;DR dev blog"
+author = "Sebastian Krämer"
+theme = "hugo-vitae"
+
+# Navigation
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 1
+
+[[menu.main]]
+name = "All Posts"
+url = "/posts"
+weight = 2
