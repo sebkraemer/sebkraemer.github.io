@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>TL;DR dev blog</title>
-		<link>https://sebkraemer.github.io/</link>
-		<description>Recent content on sebkraemer.github.io</description>
+		<title>tag1 on TL;DR dev blog</title>
+		<link>https://sebkraemer.github.io/tags/tag1/</link>
+		<description>Recent content in tag1 on sebkraemer.github.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sat, 12 Dec 2020 21:56:51 +0100</lastBuildDate>
+		<lastBuildDate>Fri, 04 Dec 2020 21:07:40 +0100</lastBuildDate>
 		
-		<atom:link href="https://sebkraemer.github.io/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://sebkraemer.github.io/tags/tag1/index.xml" rel="self" type="application/rss+xml" />
 		
-		<item>
-			<title>C&#43;&#43; Weekly - Ep 154 - One Simple Trick For Reducing Code Bloat</title>
-			<link>https://sebkraemer.github.io/posts/cppweekly-ep154-reduce-code-bloat/</link>
-			<pubDate>Sat, 12 Dec 2020 21:56:51 +0100</pubDate>
-			
-			<guid>https://sebkraemer.github.io/posts/cppweekly-ep154-reduce-code-bloat/</guid>
-			<description>
-				
-				A friend sent me the link to this c&#43;&#43; weekly episode and I followed that clickbait. Just recently I met the topi...
-				
-			</description>
-		</item>
 		<item>
 			<title>About</title>
 			<link>https://sebkraemer.github.io/about/</link>

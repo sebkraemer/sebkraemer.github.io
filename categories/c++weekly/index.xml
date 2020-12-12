@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Posts on TL;DR dev blog</title>
-		<link>https://sebkraemer.github.io/posts/</link>
-		<description>Recent content in Posts on sebkraemer.github.io</description>
+		<title>c&#43;&#43;weekly on TL;DR dev blog</title>
+		<link>https://sebkraemer.github.io/categories/c&#43;&#43;weekly/</link>
+		<description>Recent content in c&#43;&#43;weekly on sebkraemer.github.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<lastBuildDate>Sat, 12 Dec 2020 21:56:51 +0100</lastBuildDate>
 		
-		<atom:link href="https://sebkraemer.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://sebkraemer.github.io/categories/c++weekly/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
 			<title>C&#43;&#43; Weekly - Ep 154 - One Simple Trick For Reducing Code Bloat</title>
@@ -19,19 +19,6 @@
 			<description>
 				
 				A friend sent me the link to this c&#43;&#43; weekly episode and I followed that clickbait. Just recently I met the topi...
-				
-			</description>
-		</item>
-		<item>
-			<title>Hello World</title>
-			<link>https://sebkraemer.github.io/posts/hello-world/</link>
-			<pubDate>Fri, 04 Dec 2020 21:05:11 +0100</pubDate>
-			
-			<guid>https://sebkraemer.github.io/posts/hello-world/</guid>
-			<description>
-				
-				Yet another blog-like emerged. I’m calling it TL;DR dev blog.
-
 				
 			</description>
 		</item>

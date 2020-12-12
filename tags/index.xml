@@ -6,9 +6,58 @@
 		<description>Recent content in Tags on sebkraemer.github.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
+		<lastBuildDate>Sat, 12 Dec 2020 21:56:51 +0100</lastBuildDate>
 		
 		<atom:link href="https://sebkraemer.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>c&#43;&#43;</title>
+			<link>https://sebkraemer.github.io/tags/c&#43;&#43;/</link>
+			<pubDate>Sat, 12 Dec 2020 21:56:51 +0100</pubDate>
+			
+			<guid>https://sebkraemer.github.io/tags/c&#43;&#43;/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>tl;dr</title>
+			<link>https://sebkraemer.github.io/tags/tldr/</link>
+			<pubDate>Sat, 12 Dec 2020 21:56:51 +0100</pubDate>
+			
+			<guid>https://sebkraemer.github.io/tags/tldr/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>self</title>
+			<link>https://sebkraemer.github.io/tags/self/</link>
+			<pubDate>Fri, 04 Dec 2020 21:07:40 +0100</pubDate>
+			
+			<guid>https://sebkraemer.github.io/tags/self/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
+		<item>
+			<title>todo</title>
+			<link>https://sebkraemer.github.io/tags/todo/</link>
+			<pubDate>Fri, 04 Dec 2020 21:07:40 +0100</pubDate>
+			
+			<guid>https://sebkraemer.github.io/tags/todo/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
 		
 	</channel>
 </rss>
