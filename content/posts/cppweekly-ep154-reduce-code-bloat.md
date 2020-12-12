@@ -80,6 +80,7 @@ Hope that was TL;DR enough and not too much of a full blog post ;)
 I also hope it was useful to you.
 
 References:
+- C++ Weekly episode #154: https://youtu.be/D8eCPl2zit4
 - https://en.cppreference.com/w/cpp/language/destructor#Trivial_destructor
 - C++17 standard, [§6.8.5 Object
   Lifetime](https://timsong-cpp.github.io/cppwp/n4659/basic.life#5)
