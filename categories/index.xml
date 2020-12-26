@@ -6,10 +6,22 @@
 		<description>Recent content in Categories on sebkraemer.github.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sat, 12 Dec 2020 21:56:51 +0100</lastBuildDate>
+		<lastBuildDate>Fri, 25 Dec 2020 16:54:48 +0100</lastBuildDate>
 		
 		<atom:link href="https://sebkraemer.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>fints101</title>
+			<link>https://sebkraemer.github.io/categories/fints101/</link>
+			<pubDate>Fri, 25 Dec 2020 16:54:48 +0100</pubDate>
+			
+			<guid>https://sebkraemer.github.io/categories/fints101/</guid>
+			<description>
+				
+				
+				
+			</description>
+		</item>
 		<item>
 			<title>c&#43;&#43;weekly</title>
 			<link>https://sebkraemer.github.io/categories/c&#43;&#43;weekly/</link>

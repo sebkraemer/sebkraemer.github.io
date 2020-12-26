@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.75.1" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="FinTS101 kickoff">
+	
+	
+	<meta name="keywords" content="javascript"><meta property="og:title" content="FinTS101 kickoff" />
+<meta property="og:description" content="The TL;DR  So this idea grew in me to create project for a tool that will support my daily work at StarFinanz and also teach me new technology. It will be implemented in JavaScript, I want to try web development. I have not chosen specific backend and frontend technologies.  What it is about FinTS, Financial Transaction Services, is a banking standard. One thing I have to deal with is FinTS messages that get sent or received by our software." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sebkraemer.github.io/posts/fints101-kickoff/" />
+<meta property="article:published_time" content="2020-12-25T16:54:48+01:00" />
+<meta property="article:modified_time" content="2020-12-25T16:54:48+01:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FinTS101 kickoff"/>
+<meta name="twitter:description" content="The TL;DR  So this idea grew in me to create project for a tool that will support my daily work at StarFinanz and also teach me new technology. It will be implemented in JavaScript, I want to try web development. I have not chosen specific backend and frontend technologies.  What it is about FinTS, Financial Transaction Services, is a banking standard. One thing I have to deal with is FinTS messages that get sent or received by our software."/>
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/all.css" />
+	<title>FinTS101 kickoff | TL;DR dev blog</title></head>
+<body><header>
+	
+	<div id="titletext"><h2 id="title"><a href="https://sebkraemer.github.io/">TL;DR dev blog</a></h2></div>
+	<div id="title-description"><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/about">About</a></li>
+				
+				<li><a href="/posts">All Posts</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">25</span>
+				<span class="rest">Dec 2020</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">FinTS101 kickoff</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<h2 id="the-tldr">The TL;DR</h2>
+<ul>
+<li>So this idea grew in me to create project for a tool that
+will support my daily work at StarFinanz and also teach me new technology.</li>
+<li>It will be implemented in JavaScript, I want to try web development.</li>
+<li>I have not chosen specific backend and frontend technologies.</li>
+</ul>
+<h2 id="what-it-is-about">What it is about</h2>
+<p>FinTS, <em>Financial Transaction Services</em>, is a banking standard. One thing I have
+to deal with is FinTS messages that get sent or received by our software. To
+give you an idea how such a message looks typically, see the following as an
+example:</p>
+<pre><code class="language-fints" data-lang="fints">HNHBK:1:3+000000000616+300+220120830267=168766141471CQCG=+2+220120830267=168766
+141471CQCG=:2'HNVSK:998:3+PIN:2+998+1+2::7J/B9ULFfmQBAAA?+Vr9xqusWrAQA+1:201807
+09:134108+2:2:13:@8@00000000:5:1+280:10050000:123456789:V:0:0+0'HNVSD:999:1+@36
+4@HNSHK:2:4+PIN:2+920+1174665917332909+1+1+2::7J/B9ULFfmQBAAA?+Vr9xqusWrAQA+1+1
+:20180709:134108+1:999:1+6:10:16+280:10050000:123456789:S:0:0'HIRMG:3:2+0010::N
+achricht entgegengenommen.'HIRMS:4:2:3+0020::Der Auftrag wurde ausgeführt.'HITA
+B:5:4:3+0+M:2:::::::::::Unregistriert 1::01514/654321::::::+M:1:::::::::::Handy
+:*********4321:::::::'HNSHA:6:2+1174665917332909''HNHBS:7:1+2’
+</code></pre><p>(taken from <a href="https://homebanking-hilfe.de/forum/topic.php?t=22058">https://homebanking-hilfe.de/forum/topic.php?t=22058</a>)</p>
+<p>You see the problem? :)</p>
+<p>The message is a reply from a bank in return to a customer request message and
+contains information about the available TAN authentication type. When working
+on a support case it would be incredibly helpful to check at least syntactic
+correctness of a message easily. For manual inspection of the values, I’m
+thinking it would be great to mark a field and have the tool tell me what that
+content type is supposed to be (dialogue number, actual account data, used
+authentication type or whatnot). I can then decide if the value makes sense in
+the context with help of the FinTS specification.</p>
+<p>Currently, without such tool, the code often is reformatted manually, making the
+structure more visible. Decrypting its contents becomes easier for the human. A
+colleague has some editor-based macros in place to do part of that. I believe
+FinTS101 would be a real time saver here!</p>
+<p>An example of such a useful tool is regex101 which I have used many times when
+writing or validating regex expressions (regexes sometimes being called
+write-only code for a reason). If you don’t know it, bookmark it right away!</p>
+<h2 id="fints101-ideas">FinTS101 ideas</h2>
+<p>So <a href="https://regex101.com/" target="_blank">regex101</a> serves as inspiration and I&rsquo;ll adpot adopt
+the name. I love that regex101 runs in my browser so fints101 will be a web
+application, too. (Did I mention I want to learn JavaScript and web
+development?) I leave it as an open decision as to how far and mature I’ll
+develop that thing. I’m happy if it turns out as something useful for me. If
+there is more potential or work-related or even public interest in it, I can
+well imagine to make that a really awesome web app!</p>
+<p>Another aspect is that I might want to continue learning in another area than
+JS/web after finishing a certain FintS101 milestone. For now, I&rsquo;ll concentrate
+on getting something to work at all!</p>
+<p>So these are some ideas:</p>
+<ul>
+<li>There will be a parser for the messages. It will be useful to check if parsing
+is successful or not.</li>
+<li>Display the parsing tree.</li>
+<li>Would be great to being able to mark most of the fields by type, at least
+numerical, test, binary and so on, e.g. CSS-based (customizable) with
+different background colours</li>
+<li>on-demand information via mouse hover</li>
+<li>Semantic information (message/segment specific) sounds awesome but not sure
+it’s feasible in the scope I&rsquo;m aiming for right now.</li>
+<li>Display related information from the FinTS specs.</li>
+<li>Deserialization of data which has its own format inside specific segments
+(there are several such formats).</li>
+</ul>
+<p>As for technology, I want to learn JavsScript and will take this project as such
+opportunity. (As someone coming from C++ I’d appreciate to start right away with
+TypeScript for its stronger type system but I opt for doing one (or at least
+fewer steps at a time.) I like the idea that the application will work in any
+browser. Being a backend developer in the past (and future) I’ll probalby
+involve Node.JS (which I want to get into, too, and <a href="https://github.com/sebkraemer/wishlist-js" target="_blank">which I have played with
+before</a>). The frontend could involve
+React or Angular. (Angular, I believe, would force me to get into TypeScript,
+hm.)</p>
+<p>OK, so these are some ideas. Next step will be to have a closer look at tools
+and libraries to work with.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fints101/"> fints101 </a>
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+
+
+
+
+
+</body>
+</html>

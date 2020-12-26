@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>fints101 on TL;DR dev blog</title>
+		<link>https://sebkraemer.github.io/categories/fints101/</link>
+		<description>Recent content in fints101 on sebkraemer.github.io</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<lastBuildDate>Fri, 25 Dec 2020 16:54:48 +0100</lastBuildDate>
+		
+		<atom:link href="https://sebkraemer.github.io/categories/fints101/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>FinTS101 kickoff</title>
+			<link>https://sebkraemer.github.io/posts/fints101-kickoff/</link>
+			<pubDate>Fri, 25 Dec 2020 16:54:48 +0100</pubDate>
+			
+			<guid>https://sebkraemer.github.io/posts/fints101-kickoff/</guid>
+			<description>
+				
+				The TL;DR  So this idea grew in me to create project for a tool that will support my daily work at StarFinanz and also t...
+				
+			</description>
+		</item>
+		
+	</channel>
+</rss>
