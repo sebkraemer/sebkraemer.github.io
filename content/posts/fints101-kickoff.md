@@ -5,9 +5,11 @@ categories: ["fints101"]
 tags: ["javascript", ]
 ---
 
-So this idea grew in me to create a javascript based project for a tool that
-will support my daily work at StarFinanz and also teach me web development
-including JavaScript.
+## The TL;DR
+- So this idea grew in me to create project for a tool that
+  will support my daily work at StarFinanz and also teach me new technology.
+- It will be implemented in JavaScript, I want to try web development.
+- I have not chosen specific backend and frontend technologies.
 
 ## What it is about
 
