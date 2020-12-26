@@ -51,13 +51,13 @@ write-only code for a reason). If you don’t know it, bookmark it right away!
 
 ## FinTS101 ideas
 
-So regex101 serves as inspiration and I'll adpot adopt the name. I love that
-regex101 runs in my browser so fints101 will be a web application, too. (Did I
-mention I want to learn JavaScript and web development?) I leave it as an open
-decision as to how far and mature I’ll develop that thing. I’m happy if it turns
-out as something useful for me. If there is more potential or work-related or
-even public interest in it, I can well imagine to make that a really awesome web
-app!
+So [regex101](https://regex101.com/) serves as inspiration and I'll adpot adopt
+the name. I love that regex101 runs in my browser so fints101 will be a web
+application, too. (Did I mention I want to learn JavaScript and web
+development?) I leave it as an open decision as to how far and mature I’ll
+develop that thing. I’m happy if it turns out as something useful for me. If
+there is more potential or work-related or even public interest in it, I can
+well imagine to make that a really awesome web app!
 
 Another aspect is that I might want to continue learning in another area than
 JS/web after finishing a certain FintS101 milestone. For now, I'll concentrate
