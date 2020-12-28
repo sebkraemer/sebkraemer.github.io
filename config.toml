@@ -13,19 +13,24 @@ googleAnalytics = "G-RB30ZBH6RS"
 [[menu.main]]
 name = "About"
 url = "/about"
-weight = 1
+weight = 10
 
 [[menu.main]]
 name = "All Posts"
 url = "/posts"
-weight = 2
+weight = 20
+
+[[menu.main]]
+name = "FinTS101"
+url = "categories/fints101"
+weight = 30
 
 [[menu.main]]
 name = "Tags"
 url = "/tags"
-weight = 3
+weight = 40
 
 [[menu.main]]
 name = "Categories"
 url = "/categories"
-weight = 4
+weight = 50
