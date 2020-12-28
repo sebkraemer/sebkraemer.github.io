@@ -6,16 +6,28 @@
 		<description>Recent content in javascript on sebkraemer.github.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Fri, 25 Dec 2020 16:54:48 +0100</lastBuildDate>
+		<lastBuildDate>Mon, 28 Dec 2020 16:27:31 +0100</lastBuildDate>
 		
 		<atom:link href="https://sebkraemer.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>FinTS101: Choosing the tool</title>
+			<link>https://sebkraemer.github.io/posts/fints101-02-first-steps/</link>
+			<pubDate>Mon, 28 Dec 2020 16:27:31 +0100</pubDate>
+			
+			<guid>https://sebkraemer.github.io/posts/fints101-02-first-steps/</guid>
+			<description>
+				
+				The TL;DR  I decided to use a parser generator for the project instead of writing my own. So a lot of code writing is sa...
+				
+			</description>
+		</item>
+		<item>
 			<title>FinTS101 kickoff</title>
-			<link>https://sebkraemer.github.io/posts/fints101-kickoff/</link>
+			<link>https://sebkraemer.github.io/posts/fints101-01-kickoff/</link>
 			<pubDate>Fri, 25 Dec 2020 16:54:48 +0100</pubDate>
 			
-			<guid>https://sebkraemer.github.io/posts/fints101-kickoff/</guid>
+			<guid>https://sebkraemer.github.io/posts/fints101-01-kickoff/</guid>
 			<description>
 				
 				The TL;DR  So this idea grew in me to create project for a tool that will support my daily work at StarFinanz and also t...
