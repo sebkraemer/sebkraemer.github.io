@@ -2,7 +2,7 @@
 title: "FinTS101 kickoff"
 date: 2020-12-25T16:54:48+01:00
 categories: ["fints101"]
-tags: ["javascript", ]
+tags: ["javascript", "project" ]
 ---
 
 ## The TL;DR
