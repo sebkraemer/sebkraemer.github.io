@@ -22,7 +22,7 @@ weight = 20
 
 [[menu.main]]
 name = "FinTS101"
-url = "categories/fints101"
+url = "/categories/fints101"
 weight = 30
 
 [[menu.main]]
