@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.75.1" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="Fints101 Ep. 3: The Parse Tree">
+	
+	
+	<meta name="keywords" content="javascript,project"><meta property="og:title" content="Fints101 Ep. 3: The Parse Tree" />
+<meta property="og:description" content="The TL;DR  I managed to setup my little project with node.js and antlr. The written code will output tagged elements from a parse of a segmentkopf element based on a first grammar. I had to overcome some problems translating from java examples to javascript for what I tried to do. I will stick with ANTLR.  Project setup Node.JS I skip that part since I&rsquo;ve done the setup before and it&rsquo;s not really the focus of the project (yet &ndash; I plan add some CI and deployments at some point)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sebkraemer.github.io/posts/fints101-03-the-parse-tree/" />
+<meta property="article:published_time" content="2021-01-10T20:08:55+01:00" />
+<meta property="article:modified_time" content="2021-01-10T20:08:55+01:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fints101 Ep. 3: The Parse Tree"/>
+<meta name="twitter:description" content="The TL;DR  I managed to setup my little project with node.js and antlr. The written code will output tagged elements from a parse of a segmentkopf element based on a first grammar. I had to overcome some problems translating from java examples to javascript for what I tried to do. I will stick with ANTLR.  Project setup Node.JS I skip that part since I&rsquo;ve done the setup before and it&rsquo;s not really the focus of the project (yet &ndash; I plan add some CI and deployments at some point)."/>
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/all.css" />
+	<title>Fints101 Ep. 3: The Parse Tree | TL;DR dev blog</title></head>
+<body><header>
+	
+	<div id="titletext"><h2 id="title"><a href="https://sebkraemer.github.io/">TL;DR dev blog</a></h2></div>
+	<div id="title-description"><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/about">About</a></li>
+				
+				<li><a href="/posts">All Posts</a></li>
+				
+				<li><a href="/categories/fints101">FinTS101</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">10</span>
+				<span class="rest">Jan 2021</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">Fints101 Ep. 3: The Parse Tree</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<h2 id="the-tldr">The TL;DR</h2>
+<ul>
+<li>I managed to setup my little project with node.js and antlr.</li>
+<li>The written code will output tagged elements from a parse of a <em>segmentkopf</em>
+element based on a first grammar.</li>
+<li>I had to overcome some problems translating from java examples to javascript
+for what I tried to do.</li>
+<li>I will stick with ANTLR.</li>
+</ul>
+<h2 id="project-setup">Project setup</h2>
+<h3 id="nodejs">Node.JS</h3>
+<p>I skip that part since I&rsquo;ve done the setup before and it&rsquo;s not really the focus
+of the project (yet &ndash; I plan add some CI and deployments at some point). Simple
+installation steps are described in the <a href="https://github.com/sebkraemer/fints101/" target="_blank">project&#39;s
+README</a>.</p>
+<h3 id="antlr">Antlr</h3>
+<p>The Antlr setup is twofold: installing the code generator and the antlr runtime.</p>
+<p>There is a really useful <a href="https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4" target="_blank">Visual Studio code
+extension</a>
+which comes with a bundled jar binary. For me, syntax highlighting and
+generating the <code>.js</code> files worked very well with it. Generate-on-save will
+produce updated source files right into the project. The more direct way to
+generate the files is to install the jar yourself and call it on the command
+line <a href="https://github.com/antlr/antlr4/blob/master/doc/javascript-target.md#how-to-create-a-javascript-lexer-or-parser" target="_blank">with some
+parameters</a>.</p>
+<h2 id="the-grammar">The grammar</h2>
+<p>First thing I was interested in was to setup a grammar for a pretty basic FinTS
+element called <em>segmentkopf</em>.</p>
+<p>A &ldquo;segmentkopf&rdquo; looks like this:</p>
+<pre><code class="language-fints" data-lang="fints">HIBNK:1:1:1
+</code></pre><p>The grammar for it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-antlr" data-lang="antlr"><span style="color:#66d9ef">grammar</span> <span style="color:#a6e22e">FinTS</span>;
+
+segmentkopf  : segmentkennung <span style="color:#66d9ef">DEG_SEP</span> segmentnummer <span style="color:#66d9ef">DEG_SEP</span> segmentversion <span style="color:#f92672">(</span><span style="color:#66d9ef">DEG_SEP</span> bezugssegment<span style="color:#f92672">)?</span>;
+
+segmentkennung : <span style="color:#66d9ef">DT_AN</span><span style="color:#f92672">+</span> ;
+segmentnummer : <span style="color:#66d9ef">DT_num</span> ;
+segmentversion : <span style="color:#66d9ef">DT_num</span> ;
+bezugssegment : <span style="color:#66d9ef">DT_num</span> ;
+
+DT_AN : [A-Z] ;
+
+<span style="color:#75715e">// H.1.1 Syntaxzeichen</span>
+DEG_SEP : <span style="color:#e6db74">&#39;:&#39;</span> ;
+
+<span style="color:#75715e">// // Datenformate</span>
+DT_num : <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#f92672">|</span> [1-9] [0-9]<span style="color:#f92672">*</span> ; <span style="color:#75715e">// Numerisch, keine fuehrenden Nullen</span>
+</code></pre></div><p>(forgive the German names and comments, but since the spec is written inGerman,
+too, I&rsquo;ll stick to its terms, following a domain driven approach)</p>
+<p>Grammar rules start with lowercase, lexer expressions with uppercase letters.</p>
+<p>I decided to create rules for the seemingly trivial numbers like <em>segmentnummer</em>
+because</p>
+<ul>
+<li>it will make my experimental parse tree more interesting</li>
+<li>it will give more possiblities to visually mark or even validate the field
+values.</li>
+</ul>
+<h2 id="some-actual-javascript-code">Some actual JavaScript code</h2>
+<p>After some initial node module related trouble (more on that later), I came up
+with the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">antlr4</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;antlr4/index&#39;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">FinTSLexer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./antlr/FinTSLexer.js&#39;</span>).<span style="color:#a6e22e">FinTSLexer</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">FinTSParser</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./antlr/FinTSParser.js&#39;</span>).<span style="color:#a6e22e">FinTSParser</span>;
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getParser</span>(<span style="color:#a6e22e">input</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chars</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">antlr4</span>.<span style="color:#a6e22e">InputStream</span>(<span style="color:#a6e22e">input</span>);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lexer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">FinTSLexer</span>(<span style="color:#a6e22e">chars</span>);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">tokens</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">antlr4</span>.<span style="color:#a6e22e">CommonTokenStream</span>(<span style="color:#a6e22e">lexer</span>);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">parser</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">FinTSParser</span>(<span style="color:#a6e22e">tokens</span>);
+    <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">buildParseTrees</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">parser</span>;
+}
+
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">getParser</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getParser</span>;
+</code></pre></div><p>The module export offers a parser object for some input that one can pass in.
+Let&rsquo;s see it in use:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">http</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;http&#39;</span>);
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fints</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./fints.js&#39;</span>);
+
+<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">createServer</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) {
+  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">writeHead</span>(<span style="color:#ae81ff">200</span>, {<span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;text/plain&#39;</span>});
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HIBNK:1:1:1&#34;</span>
+  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">write</span>(<span style="color:#e6db74">`input: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">input</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> `</span>);
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">parser</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fints</span>.<span style="color:#a6e22e">getParser</span>(<span style="color:#a6e22e">input</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">treeSegmentkopf</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">segmentkopf</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">treeString</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">treeSegmentkopf</span>.<span style="color:#a6e22e">toStringTree</span>();
+  
+  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">end</span>(<span style="color:#e6db74">`unmodified parse tree for &#39;segmentkopf&#39; rule via toStringTree():</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">n</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">treeString</span><span style="color:#e6db74">}</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">n`</span>);
+}).<span style="color:#a6e22e">listen</span>(<span style="color:#ae81ff">3101</span>);
+</code></pre></div><p>will give the following output:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">input: HIBNK:1:1:1
+unmodified parse tree for &#39;segmentkopf&#39; rule via toStringTree():
+([] ([10] H I B N K) : ([12] 1) : ([14] 1) : ([16] 1))
+</code></pre></div><p>So one can clearly see that the parser is doing its job of creating the tree
+structure. The builtin <code>toStringTree()</code> method provides a simple representation
+of it. Still, the names <code>[10]</code>, <code>[12]</code> and <code>[14]</code> are not really usable for
+displaying insightful segment information. Turns out, these numbers do not map
+to a matched rule but to accepting states of the internal
+<a href="https://en.wikipedia.org/wiki/DFA" target="_blank">DFA</a>.</p>
+<p>For getting information from the nodes of the parse tree and build something
+from what, we will have to traverse the tree and perform some action. ANTLR
+offers two builtin ways for that: implementations of the <em>Visitor</em> and the
+<em>Listener</em> pattern. Both rely primarily on overriding empty default methods in
+autogenerated code, just where the specific behavior is wanted.</p>
+<p>The two main differences between the two are</p>
+<ul>
+<li>that methods called by a visitor can return values</li>
+<li>in a visitor, node methods are responsible for traversing the tree further
+down or wherever they want to go, e.g. certain parts of the tree can be
+skipped.</li>
+</ul>
+<p>I wondered what the best way for my purpose could be and how to implement that
+in JavaScript. That is, I did not expect to get confronted with JavaScript
+inheritence problems so quickly. How would I make a visitor call an overridden
+method? How could I solve the problem of not implementing the same thing for
+every grammar rule?</p>
+<p>After digging into <code>_prototype_</code> and the like, turns out I don&rsquo;t really need
+that. The ANTLR wiki JavaScript page <a href="https://github.com/antlr/antlr4/blob/master/doc/javascript-target.md#how-do-i-create-and-run-a-visitor" target="_blank">describes a
+visitor</a>
+that <em>does not</em> use autogenerated visitor code nor rely on specialized classes.
+(more on that later) (If you want to see some JavaScript code for a visitor, see
+<a href="https://stackoverflow.com/a/54843274" target="_blank">this SO post</a>)</p>
+<p>I&rsquo;ll skip some intermediate results and show you the current state of things:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// .. init and parsing code as before
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Visitor</span> {
+    <span style="color:#a6e22e">visitChildren</span>(<span style="color:#a6e22e">ctx</span>) {
+      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">ctx</span>) {
+        <span style="color:#66d9ef">return</span>;
+      }
+
+      <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">children</span>) {
+        <span style="color:#66d9ef">return</span>;
+      }
+
+      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">tagName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;unknownTag&#39;</span>
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">ctx</span> <span style="color:#66d9ef">instanceof</span> <span style="color:#a6e22e">ParserRuleContext</span>) {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">ruleIndex</span>
+        <span style="color:#a6e22e">tagName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parserRules</span>[<span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">ruleIndex</span>];
+        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">n&lt;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">tagName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&gt;`</span>;
+
+        <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">children</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">child</span> =&gt; {
+          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">childText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">getText</span>();
+          <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">children</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">children</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">childStr</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">toString</span>();
+            <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">accept</span>(<span style="color:#66d9ef">this</span>);
+          } <span style="color:#66d9ef">else</span> {
+            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">child</span> <span style="color:#66d9ef">instanceof</span> <span style="color:#a6e22e">TerminalNode</span>) {
+              <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">getSymbol</span>().<span style="color:#a6e22e">type</span>; <span style="color:#75715e">//why is getType() not defined?
+</span><span style="color:#75715e"></span>              <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">symbolName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">symbolicNames</span>[<span style="color:#a6e22e">index</span>];
+              <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">` &lt;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">symbolName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&gt;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">childText</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">symbolName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&gt; `</span>;
+            }
+          }
+        });
+
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">`&lt;/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">tagName</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&gt;</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">n`</span>;
+      }
+    }
+  }
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">visitResult</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">treeSegmentkopf</span>.<span style="color:#a6e22e">accept</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Visitor</span>());
+</code></pre></div><p>What&rsquo;s happening here? The visitor does a breadth-first search. For every node
+with children an opening tag is written, the child is visited recursively, then
+the closing tag is written. Nodes without a child are <em>Terminals</em> which in the
+current grammar are always represented by its literal (i.e. the letter).</p>
+<p>The trick here really is calling the <code>accept()</code> on the rule with the visitor,
+which in turn calls <code>visitChildren()</code> with changing contexts of the visited
+rules but passing in the same visitor every time. (It&rsquo;s a good interview
+question to ask for the meaning of <code>this</code> here.)</p>
+<p>The output of <code>visitResult</code> is</p>
+<pre><code>&lt;segmentkopf&gt;
+&lt;segmentkennung&gt; &lt;DT_AN&gt;H&lt;/DT_AN&gt;  &lt;DT_AN&gt;I&lt;/DT_AN&gt;  &lt;DT_AN&gt;B&lt;/DT_AN&gt;  &lt;DT_AN&gt;N&lt;/DT_AN&gt;  &lt;DT_AN&gt;K&lt;/DT_AN&gt; &lt;/segmentkennung&gt;
+ &lt;DEG_SEP&gt;:&lt;/DEG_SEP&gt; 
+&lt;segmentnummer&gt; &lt;DT_num&gt;1&lt;/DT_num&gt; &lt;/segmentnummer&gt;
+ &lt;DEG_SEP&gt;:&lt;/DEG_SEP&gt; 
+&lt;segmentversion&gt; &lt;DT_num&gt;1&lt;/DT_num&gt; &lt;/segmentversion&gt;
+ &lt;DEG_SEP&gt;:&lt;/DEG_SEP&gt; 
+&lt;bezugssegment&gt; &lt;DT_num&gt;1&lt;/DT_num&gt; &lt;/bezugssegment&gt;
+&lt;/segmentkopf&gt;
+</code></pre><p>I&rsquo;m pretty happy with that. Plus sides:</p>
+<ul>
+<li>It shows me structured output that has the metainformation I want.</li>
+<li>All parser and parsing process information is cut off.</li>
+<li>I&rsquo;m optimistic it&rsquo;s easy to adapt to html or other structured format</li>
+<li>I don&rsquo;t have to interact with the autogenerated code by ANTLR and its objects
+on an inheritance level.</li>
+</ul>
+<p>For special-casing some output for specific nodes in the future, I can write
+methods for a listener that will annotate the tree, run the listener and let it
+pick up that information afterwards in a second run, integrating the new
+information into the output.</p>
+<h2 id="impediments-and-solved-problems">Impediments and solved problems</h2>
+<p>Coming up with that was nontrivial for me. I believe it is the unfortunate
+combination of me being rather new to JavaScript and ANTLR not really treating
+JavaScript as first class citizen as the project claims.</p>
+<p>The default ANTLR npm installation put version 4.9 into place and that uses ES6
+modules. What I have done so far with node.js uses CommonJS modules and the
+<code>module.exports</code> that works differently than the <code>export</code>/<code>import</code> of ES6. Just
+switching a few keywords did not do the trick and I didn&rsquo;t feel like
+investigating the <code>SyntaxError: Cannot use import statement outside a module</code>
+for too long. I found a project that ran into this trouble after upgrade and
+found the handling of the ANTLR github issue quite unhelpful, finally deciding
+to get rid of ANTLR in their project completely. My solution was to postpone the
+solution and go with version 4.8 which does not have the problem and behaves as
+expected.</p>
+<p>Second, being new to JavaScript, typical API and debugging, it put some extra
+burden on me when I tried to translate into JavaScript example code and API docs
+that are primarily available for Java. It&rsquo;s not my final judgment but I feel
+that JavaScript is not completely up to date with all features or close to the
+API as it is claimed. That may be oversight, just not updated API or difference
+due to a more JavaScript typical API design. One example are the token and rule
+names which make up my output. There&rsquo;s written stuff about <em>vocabulary</em>,
+<code>getRuleNames()</code> and more, and in the end, JavaScript will just put these names
+in an array of the parser. For a rulename, you get the index with
+<code>ctx.ruleIndex</code>, for a terminal with <code>getSymbol().type</code>, resembling the Java a
+bit in the latter case. That was just confusing and I&rsquo;m still not quite certain
+if that&rsquo;s the way things are intended. But due to lack of official JavaScript
+documentation, that&rsquo;s what I&rsquo;m using now. Btw, the ANTLR npm module does not
+come with API docs so Visual Studio Code could not offer useful API information.</p>
+<p>Finally, the introductory for the JavaScript part helped my purpose a lot but
+it&rsquo;s not code you will come up with reading the docs or the book, I feel. Ah,
+the book. It&rsquo;s the official documentation and introduction to ANTLR and without
+it, one misses quite a few things about it. It&rsquo;s useful to get your hands on a
+copy if you intend to work with ANTLR seriously. But then again, the <code>accept()</code>
+approach is maybe too new, it is not mentioned in the book at all.</p>
+<p>Less relevant notes:</p>
+<ul>
+<li>Not related to my solution but I stumbled across reports where C++ based
+parser behaved not so well (multitudes slower than Java implementation) which
+is a bit off-putting. It would be uncool to experience performance issues in
+otherwise blazing fast C++ <em>if</em> I were to implement a larger grammar there. (I
+probably won&rsquo;t.) The bug report was initially declined as a usage problem
+rather than something ANTLR was responsible for. It was unclear last time I
+checked.</li>
+<li>The build and release process seems to be not so perfect, I read about some
+trouble for the C# release I believe where I really disliked the tone when
+things didn&rsquo;t go as expected.</li>
+</ul>
+<p>After all that ranting I admit that the project and its code will most likely be
+stable enough for my needs. After all, I might only need the parser tree and the
+rules won&rsquo;t get too complicated. The community is active, I see my first
+impressions confirmed: with github, a mailing list and stackoverflow there are
+several entry points for help giving otherwise undocumented solutions.</p>
+<p>So after finally putting all this together I&rsquo;m looking forward to continue with
+coding. I plan to create some colorized html.</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fints101/"> fints101 </a>
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/project/"> project </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-RB30ZBH6RS', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+</body>
+</html>
