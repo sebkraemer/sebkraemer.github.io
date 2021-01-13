@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.75.1" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="FinTS101 Ep. 4: Let there be color">
+	
+	
+	<meta name="keywords" content="javascript,project"><meta property="og:title" content="FinTS101 Ep. 4: Let there be color" />
+<meta property="og:description" content="I’m trying to keep this post short so I skip the TL;DR intro section.
+If you followed my posts, you’ll remeber that last time I finished building a nested tag-based representation of the parse tree using a general visitor. I did this in the hope that I could easily modify it to create html which can the displayed according to tags, e.g. print a section in a color according to its role in the grammar." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sebkraemer.github.io/posts/fints101-04-let-there-be-color/" />
+<meta property="article:published_time" content="2021-01-13T20:19:31+01:00" />
+<meta property="article:modified_time" content="2021-01-13T20:19:31+01:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FinTS101 Ep. 4: Let there be color"/>
+<meta name="twitter:description" content="I’m trying to keep this post short so I skip the TL;DR intro section.
+If you followed my posts, you’ll remeber that last time I finished building a nested tag-based representation of the parse tree using a general visitor. I did this in the hope that I could easily modify it to create html which can the displayed according to tags, e.g. print a section in a color according to its role in the grammar."/>
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/all.css" />
+	<title>FinTS101 Ep. 4: Let there be color | TL;DR dev blog</title></head>
+<body><header>
+	
+	<div id="titletext"><h2 id="title"><a href="https://sebkraemer.github.io/">TL;DR dev blog</a></h2></div>
+	<div id="title-description"><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/about">About</a></li>
+				
+				<li><a href="/posts">All Posts</a></li>
+				
+				<li><a href="/categories/fints101">FinTS101</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">13</span>
+				<span class="rest">Jan 2021</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">FinTS101 Ep. 4: Let there be color</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>I’m trying to keep this post short so I skip the TL;DR intro section.</p>
+<p>If you followed my posts, you’ll remeber that last time I finished building a
+nested tag-based representation of the parse tree using a general visitor. I did
+this in the hope that I could easily modify it to create html which can the
+displayed according to tags, e.g. print a section in a color according to its
+role in the grammar.</p>
+<p>It turns out that this was about as easy as I hoped! 😄 Let’s see the result and
+I’ll explain what happened:</p>
+<p><figure>
+  <img src="/img/fints101/fints101-hibnk-in-color.png" alt="HIBNK in color"  />
+</figure></p>
+<p>You can see that</p>
+<ul>
+<li>every colon that separates “fields” is colored pinkish</li>
+<li>the <em>segmentkennung</em> part of the grammar got its own background color</li>
+<li>the numbers are all brown <em>but</em> the special case of the <em>segment number</em> also
+got a custom background.</li>
+</ul>
+<p>I did a little detour (well, not really a detour when learning web development!)
+visiting <em>(pun!)</em> html principles and discovered that styling my html based on
+CSS could just be the right thing.</p>
+<p>The <a href="https://www.w3schools.com/css/css_selectors.asp" target="_blank">selector mechanism</a> and
+the specificity that allows adding up style properties fits the nested tagged
+syntax perfectly. I’m so happy to have discovered that! See In retrospective,
+this should have been obvious because CSS was just made for typesetting
+marked-up language elements (and more) that html is. Still astonished what a
+perfect fit that is..</p>
+<p>Anyway. What I did was:</p>
+<ul>
+<li>change the visitor to output html code with <code>&lt;span class=“XX&quot;&gt;</code> elements
+instead of pseudo-markup write a CSS</li>
+<li>change the web service to deliver html and the <code>style.css</code> file.</li>
+</ul>
+<p>A sample line in the html looks like this</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;segmentnummer&#34;</span>&gt;&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;DT_num&#34;</span>&gt;1&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</code></pre></div><p>This one will turn the background color of the <code>segmentnummer</code> part blue while</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;segmentversion&#34;</span>&gt;&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;DT_num&#34;</span>&gt;1&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
+</code></pre></div><p>will have no custom background defined and will only apply the reddish color style for <code>DT_num</code>.</p>
+<p>The CSS is pretty standard. Notice the <code>.segmentnummer</code> class selector.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">DEG_SEP</span> {
+    <span style="color:#66d9ef">color</span>:rgb(<span style="color:#ae81ff">210</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">236</span>);
+}
+
+.<span style="color:#a6e22e">DT_num</span> {
+    <span style="color:#66d9ef">color</span>: <span style="color:#ae81ff">#b41b1b</span>;
+}
+
+.<span style="color:#a6e22e">segmentnummer</span> {
+    <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">blue</span>;
+}
+
+.<span style="color:#a6e22e">segmentkennung</span> {
+    <span style="color:#66d9ef">background-color</span>: <span style="color:#66d9ef">chocolate</span>;
+}
+</code></pre></div><p>CSS will allow also overriding attributes so it would as well be possible to
+change the separator color. By using rule and token definition names in the html
+and class selectors, it’s quite straight-forward and intuitive to adapt the
+looks of the html output.</p>
+<p>What’s next? Just yesterday I wished I already had that visualizer tool ready
+when wading through some segment data in a test case. I’ll tackle decoupling the
+input from the source next, that is, parse interactive content.</p>
+<p>That’s it for now, thanks for reading!</p>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fints101/"> fints101 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/project/"> project </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-RB30ZBH6RS', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+</body>
+</html>

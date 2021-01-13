@@ -6,12 +6,25 @@
 		<description>Recent content in javascript on sebkraemer.github.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Sun, 10 Jan 2021 20:08:55 +0100</lastBuildDate>
+		<lastBuildDate>Wed, 13 Jan 2021 20:19:31 +0100</lastBuildDate>
 		
 		<atom:link href="https://sebkraemer.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>Fints101 Ep. 3: The Parse Tree</title>
+			<title>FinTS101 Ep. 4: Let there be color</title>
+			<link>https://sebkraemer.github.io/posts/fints101-04-let-there-be-color/</link>
+			<pubDate>Wed, 13 Jan 2021 20:19:31 +0100</pubDate>
+			
+			<guid>https://sebkraemer.github.io/posts/fints101-04-let-there-be-color/</guid>
+			<description>
+				
+				I’m trying to keep this post short so I skip the TL;DR intro section.
+If you followed my posts, you’ll remeber that last...
+				
+			</description>
+		</item>
+		<item>
+			<title>FinTS101 Ep. 3: The Parse Tree</title>
 			<link>https://sebkraemer.github.io/posts/fints101-03-the-parse-tree/</link>
 			<pubDate>Sun, 10 Jan 2021 20:08:55 +0100</pubDate>
 			
