@@ -1,5 +1,5 @@
 ---
-title: "Fints101 Ep. 3: The Parse Tree"
+title: "FinTS101 Ep. 3: The Parse Tree"
 date: 2021-01-10T20:08:55+01:00
 categories: ["fints101"]
 tags: ["javascript", "project" ]
