@@ -105,7 +105,8 @@ perfect fit that is..</p>
 <p>Anyway. What I did was:</p>
 <ul>
 <li>change the visitor to output html code with <code>&lt;span class=“XX&quot;&gt;</code> elements
-instead of pseudo-markup write a CSS</li>
+instead of pseudo-markup</li>
+<li>write a CSS</li>
 <li>change the web service to deliver html and the <code>style.css</code> file.</li>
 </ul>
 <p>A sample line in the html looks like this</p>
@@ -113,7 +114,7 @@ instead of pseudo-markup write a CSS</li>
 </code></pre></div><p>This one will turn the background color of the <code>segmentnummer</code> part blue while</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;segmentversion&#34;</span>&gt;&lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;DT_num&#34;</span>&gt;1&lt;/<span style="color:#f92672">span</span>&gt;&lt;/<span style="color:#f92672">span</span>&gt;
 </code></pre></div><p>will have no custom background defined and will only apply the reddish color style for <code>DT_num</code>.</p>
-<p>The CSS is pretty standard. Notice the <code>.segmentnummer</code> class selector.</p>
+<p>The CSS is pretty standard. Notice the <code>.segmentnummer</code> class selector defining the blue background.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">DEG_SEP</span> {
     <span style="color:#66d9ef">color</span>:rgb(<span style="color:#ae81ff">210</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">236</span>);
 }
@@ -159,6 +160,8 @@ input from the source next, that is, parse interactive content.</p>
 			
 			
 			
+			
+			
 			<a href="/categories/fints101/"> fints101 </a>
 			
 			
@@ -192,7 +195,11 @@ input from the source next, that is, parse interactive content.</p>
 			
 			
 			
+			
+			
 			<a href="/tags/javascript/"> javascript </a>
+			
+			
 			
 			
 			

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	
+	<meta name="generator" content="Hugo 0.75.1" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<meta property="og:title" content="FinTS101 Ep. 5: Interactive website milestone">
+	
+	
+	<meta name="keywords" content="javascript,project"><meta property="og:title" content="FinTS101 Ep. 5: Interactive website milestone" />
+<meta property="og:description" content="Today I&rsquo;m reporting back to tell you about the latest code changes which result in a simple but interactive website that displays the colored parse result as shown before. (Spoiler: you can see the result at the end of this post.)
+The TL;DR  The application was split into frontend and backend: The website has a text field and a submit button, sending asynchronously a request to a parser REST endpoint and displaying the result on the same page." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://sebkraemer.github.io/posts/fints101-05-interactive-website-milestone/" />
+<meta property="article:published_time" content="2021-01-29T15:19:31+01:00" />
+<meta property="article:modified_time" content="2021-01-29T15:19:31+01:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FinTS101 Ep. 5: Interactive website milestone"/>
+<meta name="twitter:description" content="Today I&rsquo;m reporting back to tell you about the latest code changes which result in a simple but interactive website that displays the colored parse result as shown before. (Spoiler: you can see the result at the end of this post.)
+The TL;DR  The application was split into frontend and backend: The website has a text field and a submit button, sending asynchronously a request to a parser REST endpoint and displaying the result on the same page."/>
+
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/all.css" />
+	<title>FinTS101 Ep. 5: Interactive website milestone | TL;DR dev blog</title></head>
+<body><header>
+	
+	<div id="titletext"><h2 id="title"><a href="https://sebkraemer.github.io/">TL;DR dev blog</a></h2></div>
+	<div id="title-description"><div id="social">
+			<nav>
+				<ul></ul>
+			</nav>
+		</div>
+	</div>
+	
+	<div id="mainmenu">
+		<nav>
+			<ul>
+				
+				<li><a href="/about">About</a></li>
+				
+				<li><a href="/posts">All Posts</a></li>
+				
+				<li><a href="/categories/fints101">FinTS101</a></li>
+				
+				<li><a href="/tags">Tags</a></li>
+				
+				<li><a href="/categories">Categories</a></li>
+				
+			</ul>
+		</nav>
+	</div>
+	
+</header>
+<main><div class="post">
+	
+	<div class="author">
+	
+	</div>
+	<div class="post-header">
+	
+		<div class="meta">
+			
+			<div class="date">
+				<span class="day">29</span>
+				<span class="rest">Jan 2021</span>
+			</div>
+			
+		</div>
+		
+		<div class="matter">
+			<h1 class="title">FinTS101 Ep. 5: Interactive website milestone</h1>
+		</div>
+	</div>
+	<div class="markdown">
+		<p>Today I&rsquo;m reporting back to tell you about the latest code changes which result
+in a simple but interactive website that displays the colored parse result as
+shown before. (Spoiler: you can see the result at the end of this post.)</p>
+<h1 id="the-tldr">The TL;DR</h1>
+<ul>
+<li>The application was split into frontend and backend: The website has a text
+field and a submit button, sending asynchronously a request to a parser REST
+endpoint and displaying the result on the same page.</li>
+<li>HTML5 and node.js builtin functionality were used to avoid new dependencies.</li>
+</ul>
+<h1 id="goal-interactivity">Goal: Interactivity</h1>
+<p>The previous implementation worked by parsing a fixed input pattern and
+returning its parse result whenever the page was loaded. This was OK to verify
+basic working of the parser and to develop the CSS based markup concept that
+delivers colored output depending on the used parser rules.</p>
+<p>With a goal of a <a href="https://regex101.com" target="_blank">regex101</a> experience in mind and to get
+a working solution for me for basic daily tasks, I wanted to make the &ldquo;webapp&rdquo;
+(you cannot really call it that yet) interactive, as soon as possible. For me,
+that means that I can choose the input and get the parse output without any
+hassle. <em>Hassle</em> here means that I don&rsquo;t even want to switch between pages.</p>
+<h1 id="incarnation-of-dedicated-frontend-and-backend">Incarnation of dedicated frontend and backend</h1>
+<p>I&rsquo;m more a backend than a frontend guy and want to explore current cloud
+technologies so it was clear to me from the start that this project would
+<em>(should)</em> work by having a decicated backend. I also started a node.js based
+project as a JavaScript entry point so starting there felt a bit familiar.</p>
+<p>That being said, I see that using the application without running or relying on
+a dedicated service is highly desirable. Surely browsers will be powerful enough
+to run the entire thing so my plans include to create a build and deployment
+process for running fints101 browser-only.</p>
+<h1 id="framework-decisions">Framework decisions</h1>
+<p>For the frontend, I was confronted to look into AJAX (which I first heard about
+decades ago before being a &ldquo;real&rdquo; developer but never quite got it) and jQuery
+which I sometimes heard was not so popular any more, but it seems many still use
+it also for new projects. Again I want to see if builtin functionality is
+sufficient and after going a bit deeper I chose html5&rsquo;s <em>fetch()</em> method which
+is a never and more flexible way to do some of the things that AJAX provides.
+Basically it allows to make REST calls as JavaScript promises and so can be
+integrated directly into the web page.</p>
+<p>It goes without much saying that a web application backend will be REST based.
+Pluralsight courses and most tutorials usually introduce Express.JS framework
+for writing REST backends in Node.JS. This is understandable, it simplifies so
+many things when handling different routes, middleware and more. I however want
+to keep dependencies low (at least for now) so I am sticking with what Node
+provides builtin. As an alternative to Express I also consider OpenAPI. I does
+not introduce new runtime dependencies and has support for multiple languages.
+This will make building a REST service with the same API in e.g. C# possibly
+easier (me dreaming of experimenting with Blazor). I also read it can generate
+test classes for the defined API.</p>
+<h1 id="the-code">The code</h1>
+<h2 id="the-frontend">The frontend</h2>
+<p>The frontend shall do the following:</p>
+<ul>
+<li>allow entering the data</li>
+<li>send the data as parse request to the REST service</li>
+<li>display result, preferably without reloading the page</li>
+</ul>
+<p>Building the form with button really reminded me of early html days when I
+played around with simple web pages at the end of the 90s . That were different
+browser times!</p>
+<p>The html (returned by node) starts with a html form which contains a textarea
+with the input. Its <code>name</code> attribute, <em>fintsInput</em>, will be the name for the
+JSON object property in the REST GET request. Note that the REST request type,
+<em>GET</em>, and the target URL are not specified in the form but handled elsewhere.</p>
+<p>Two <code>&lt;div&gt;</code> fields, <code>resultDiv</code> and <code>resultStatus</code>, are placed below the form to
+hold the result and request status.</p>
+<p>The functionality is contained in a script that gets executed when pressing
+<em>Submit</em>:</p>
+<ul>
+<li>Take the form data from the <code>textarea</code> field and build the string for the GET
+request.</li>
+<li>Execute fetch() for the GET request.</li>
+<li>Place the result in <code>resultDiv</code> when its ready. This is nonblocking thanks to
+promise.</li>
+<li>Prevent default form action which would send its own request and reload the
+page.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">label</span> <span style="color:#a6e22e">for</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fintsInputArea&#34;</span>&gt;FinTS message&lt;/<span style="color:#f92672">label</span>&gt;
+&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fintsForm&#34;</span>&gt;
+&lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fintsInputArea&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fintsInput&#34;</span> <span style="color:#a6e22e">rows</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10&#34;</span> <span style="color:#a6e22e">cols</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;80&#34;</span> <span style="color:#a6e22e">padding</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#a6e22e">autofocus</span>&gt;HIBNK:1:1:1&lt;/<span style="color:#f92672">textarea</span>&gt;
+&lt;<span style="color:#f92672">p</span>&gt;
+&lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submitButton&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Submit&#34;</span>&gt;Submit&lt;/<span style="color:#f92672">button</span>&gt;
+&lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;reset&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;resetButton&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Reset&#34;</span>&gt;Reset&lt;/<span style="color:#f92672">button</span>&gt;
+&lt;/<span style="color:#f92672">form</span>&gt;
+
+&lt;<span style="color:#f92672">p</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;resultDiv&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+&lt;<span style="color:#f92672">p</span>&gt;
+&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;resultStatus&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">form</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;fintsForm&#34;</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sb</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">elements</span>[<span style="color:#e6db74">&#34;submitButton&#34;</span>];
+  <span style="color:#a6e22e">sb</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#34;click&#34;</span>, <span style="color:#a6e22e">event</span> =&gt; {
+    <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">preventDefault</span>();
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">parseInput</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">elements</span>[<span style="color:#e6db74">&#34;fintsInputArea&#34;</span>].<span style="color:#a6e22e">value</span>;
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">request</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Request</span>(<span style="color:#e6db74">&#34;/parse?fintsInput=&#34;</span> <span style="color:#f92672">+</span> encodeURIComponent(<span style="color:#a6e22e">parseInput</span>) );
+    <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">request</span>)
+    .<span style="color:#a6e22e">then</span>( <span style="color:#a6e22e">responseData</span> =&gt; { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">responseData</span>.<span style="color:#a6e22e">text</span>(); } )
+    .<span style="color:#a6e22e">then</span>( <span style="color:#a6e22e">parseResult</span> =&gt; {
+      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">resultDiv</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#34;resultDiv&#34;</span>);
+      <span style="color:#a6e22e">resultDiv</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parseResult</span>;
+    });
+  });
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h2 id="nodejs-backend">Node.js backend</h2>
+<p>As before, the code is based on Node&rsquo;s buitin <code>http</code> module. It is complemented
+by an explicit check for the HTTP <code>GET</code> method at the <code>/parse</code> URL.</p>
+<p>With help of the <code>url</code> module, the form data parsed and the <code>fintsInput</code> part is
+extracted. It is then used as FinTS parser input where a hard-coded value was
+used before.</p>
+<p>Remember, the ANTLR visitor creates html output so it can be put directly into
+the request result for later display in the browser.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">createServer</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reqUrl</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">url</span>, <span style="color:#66d9ef">true</span>);
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">url</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;/style.css&#39;</span>) {
+    <span style="color:#75715e">// as before
+</span><span style="color:#75715e"></span>  }
+  <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">method</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;GET&#34;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">reqUrl</span>.<span style="color:#a6e22e">pathname</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;/parse&#34;</span>) {
+    <span style="color:#75715e">// parse form data and send result html
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">parseData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">reqUrl</span>.<span style="color:#a6e22e">query</span>;
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">input</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parseData</span>.<span style="color:#a6e22e">fintsInput</span>; <span style="color:#75715e">// e.g. &#34;HIBNK:1:1:1&#34;
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">parser</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fints</span>.<span style="color:#a6e22e">getParser</span>(<span style="color:#a6e22e">input</span>);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">treeSegmentkopf</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">segmentkopf</span>();
+
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ruleNames</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">ruleNames</span>;
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">symbolicNames</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">parser</span>.<span style="color:#a6e22e">symbolicNames</span>;
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">visitResult</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">treeSegmentkopf</span>.<span style="color:#a6e22e">accept</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">fints</span>.<span style="color:#a6e22e">HtmlVisitor</span>(<span style="color:#a6e22e">ruleNames</span>, <span style="color:#a6e22e">symbolicNames</span>));
+
+    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">writeHead</span>(<span style="color:#ae81ff">200</span>, { <span style="color:#e6db74">&#39;Content-Type&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;text/html&#39;</span> });
+    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">visitResult</span>);
+    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">end</span>();
+  }
+  <span style="color:#66d9ef">else</span> {
+    <span style="color:#75715e">// html is delivered here
+</span><span style="color:#75715e"></span>  }
+</code></pre></div><p>The html is also completely delivered by the backend as &ldquo;raw&rdquo; html without e.g.
+a templating engine. This is to avoid possibly heavy dependencies and like the
+backend, this leaves room for experiments with other frameworks later. For the
+frontend, I might give Angular or React a try.</p>
+<h2 id="result">Result</h2>
+<p>After all the talk, the result kind of looks unspectacular but once more I&rsquo;m
+quite happy to see things working in the end after solving each intermediate
+step 🤩</p>
+<p><figure>
+  <img src="/img/fints101/fints101-first-interactive-frontend.gif" alt="screencast"  />
+</figure></p>
+<h1 id="future-work">Future work</h1>
+<p>Nothing is decided yet but these are some short- to midterm goals.</p>
+<p>The following two go hand in hand:</p>
+<ul>
+<li>Are we ready for tests?<!-- raw HTML omitted --> I consider myself an engineer who always praised
+the importance and usefulness of automated testing for various reasons. Having
+no tests yet kind of begins to have a bad taste.</li>
+<li>I have not dealt with error mechanisms of ANTLR but of course I want to detect
+if the parsing process encountered problems on its way.</li>
+</ul>
+<p>Parts for improved user experience which probably have to wait a bit:</p>
+<ul>
+<li>avoid submit button, just reload after some time
+<ul>
+<li>on error, display latest succesful run or place where it failed, when
+possible</li>
+</ul>
+</li>
+<li>enable drag-and-drop into HTML form</li>
+<li>browser-only version (no backend service needed)</li>
+</ul>
+<p>For better readability of FinTS messages I want to add line breaks at certain
+points. Actually that was one of the primary aims before creating the FinTS101
+project.</p>
+<h1 id="references">References</h1>
+<p>I decided to put in some references for looking up later and for you to follow
+if interested.</p>
+<ul>
+<li><a href="https://eloquentjavascript.net/18_http.html" target="_blank">Eloquent JavaScript, Chapter &amp;ldquo;HTTP and
+Forms&amp;rdquo;</a> &ndash; pretty good free
+online book, also has a chapter about callbacks, asynchronosity and JS
+promises</li>
+<li><a href="https://www.w3schools.com/jsref/dom_obj_form.asp" target="_blank">The form object at
+w3schools.com</a> &ndash; a really
+nice reference throughout</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Basic_concepts" target="_blank">fetch() at
+developer.mozilla.org</a>
+&ndash; also very nice reference</li>
+<li><a href="https://adityasridhar.com/posts/how-to-use-nodejs-without-frameworks-and-external-libraries" target="_blank">How to use NodeJS without frameworks and external
+libraries</a>
+&ndash; this helped in creating the REST endpoint</li>
+<li><a href="https://www.pluralsight.com/guides/submit-form-react-without-jquery-ajax#module-thefetchapi" target="_blank">Submit Form in React without jQuery
+AJAX</a>
+&ndash; this helped with fetch*()</li>
+<li><a href="https://www.w3schools.com/xml/ajax_intro.asp" target="_blank">HTML Ajax</a> Just as comparison
+to the more current and preferred fetch()</li>
+<li><a href="https://medium.com/javascript-in-plain-english/parsing-post-data-3-different-ways-in-node-js-e39d9d11ba8">https://medium.com/javascript-in-plain-english/parsing-post-data-3-different-ways-in-node-js-e39d9d11ba8</a></li>
+<li>Pluralsight courses I watched or skimmed over (not necessarily for this part
+of my JS journey):
+<ul>
+<li><a href="https://app.pluralsight.com/library/courses/web-development-intro/table-of-contents" target="_blank">Introduction to Web
+Development</a></li>
+<li><a href="https://app.pluralsight.com/course-player?clipId=3fc2827e-c1e5-46ce-b9fb-2e5a27c10653" target="_blank">Front-End Web Development Quick Start With HTML5, CSS, and
+JavaScript</a></li>
+<li><a href="https://app.pluralsight.com/library/courses/javascript-fundamentals" target="_blank">JavaScript
+Fundamentals</a></li>
+<li><a href="https://app.pluralsight.com/library/courses/advanced-javascript" target="_blank">Advanced
+JavaScript</a>
+&ndash; great part about callbacks vs. promises and synchronous vs. asynchronous
+computing and thinking</li>
+</ul>
+</li>
+</ul>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Categories</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			<a href="/categories/fints101/"> fints101 </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+	
+	
+	
+	<div class="tags">
+		<div class="taxosfloating_left">
+			<p>Tags</p>
+		</div>
+		<div class="termsfloating_right">
+			<p>
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/javascript/"> javascript </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<a href="/tags/project/"> project </a>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</p>
+		</div>
+		<div class="clearit"></div>
+		
+		
+		
+		
+		
+	</div></div>
+
+  </main>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-RB30ZBH6RS', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+</body>
+</html>

@@ -6,10 +6,22 @@
 		<description>Recent content in project on sebkraemer.github.io</description>
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
-		<lastBuildDate>Wed, 13 Jan 2021 20:19:31 +0100</lastBuildDate>
+		<lastBuildDate>Fri, 29 Jan 2021 15:19:31 +0100</lastBuildDate>
 		
 		<atom:link href="https://sebkraemer.github.io/tags/project/index.xml" rel="self" type="application/rss+xml" />
 		
+		<item>
+			<title>FinTS101 Ep. 5: Interactive website milestone</title>
+			<link>https://sebkraemer.github.io/posts/fints101-05-interactive-website-milestone/</link>
+			<pubDate>Fri, 29 Jan 2021 15:19:31 +0100</pubDate>
+			
+			<guid>https://sebkraemer.github.io/posts/fints101-05-interactive-website-milestone/</guid>
+			<description>
+				
+				Today I’m reporting back to tell you about the latest code changes which result in a simple but interactive websit...
+				
+			</description>
+		</item>
 		<item>
 			<title>FinTS101 Ep. 4: Let there be color</title>
 			<link>https://sebkraemer.github.io/posts/fints101-04-let-there-be-color/</link>
