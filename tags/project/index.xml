@@ -17,9 +17,9 @@
 			
 			<guid>https://sebkraemer.github.io/posts/fints101-05-interactive-website-milestone/</guid>
 			<description>
-				
-				Today I’m reporting back to tell you about the latest code changes which result in a simple but interactive websit...
-				
+			
+				Today I’m reporting back to tell you about the latest code changes which result in a simple but interactive website that displays the …
+			
 			</description>
 		</item>
 		<item>
@@ -29,10 +29,10 @@
 			
 			<guid>https://sebkraemer.github.io/posts/fints101-04-let-there-be-color/</guid>
 			<description>
-				
+			
 				I’m trying to keep this post short so I skip the TL;DR intro section.
-If you followed my posts, you’ll remeber that last...
-				
+If you followed my posts, you’ll remeber that last time I finished …
+			
 			</description>
 		</item>
 		<item>
@@ -42,9 +42,9 @@ If you followed my posts, you’ll remeber that last...
 			
 			<guid>https://sebkraemer.github.io/posts/fints101-03-the-parse-tree/</guid>
 			<description>
-				
-				The TL;DR  I managed to setup my little project with node.js and antlr. The written code will output tagged elements fro...
-				
+			
+				The TL;DR  I managed to setup my little project with node.js and antlr. The written code will output tagged elements from a parse of a …
+			
 			</description>
 		</item>
 		<item>
@@ -54,9 +54,9 @@ If you followed my posts, you’ll remeber that last...
 			
 			<guid>https://sebkraemer.github.io/posts/fints101-02-first-steps/</guid>
 			<description>
-				
-				The TL;DR  I decided to use a parser generator for the project instead of writing my own. So a lot of code writing is sa...
-				
+			
+				The TL;DR  I decided to use a parser generator for the project instead of writing my own. So a lot of code writing is saved by defining …
+			
 			</description>
 		</item>
 		<item>
@@ -66,9 +66,9 @@ If you followed my posts, you’ll remeber that last...
 			
 			<guid>https://sebkraemer.github.io/posts/fints101-01-kickoff/</guid>
 			<description>
-				
-				The TL;DR  So this idea grew in me to create project for a tool that will support my daily work at StarFinanz and also t...
-				
+			
+				The TL;DR  So this idea grew in me to create project for a tool that will support my daily work at StarFinanz and also teach me new …
+			
 			</description>
 		</item>
 		
